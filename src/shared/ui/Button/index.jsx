@@ -1,0 +1,78 @@
+import React from "react"
+import styled from "styled-components"
+
+
+const ButtonComponent = styled.input.attrs(props => ({ type: "button" }))`
+    ${props => {
+        switch (props.size) {
+            case "small":
+                return `
+                    padding : 2px 8px;
+                `
+            case "large":
+                return `
+                    padding : 12px 20px;
+                `
+            default:
+                return `
+                    padding : 8px 16px;
+                `
+        }
+    }}
+${props => {
+        switch (props.$btnType) {
+            case "primary":
+                return `
+                background-color: #0d7000;
+                border: #0d7000 1px solid;
+                border-radius : 3px;
+                color : #FFFFFF;
+                font-weight : bold;
+            `
+            case "text":
+                return `
+                background-color: rgba(255,255,255,0);
+                border: #0d7000 1px solid;
+                border-radius : 3px;
+                outline : 0;
+                color : #063600;
+            `
+            case "black": return `
+            background-color: #020202;
+            border: #020202 1px solid;
+            border-radius : 3px;
+            outline : 0;
+            color : #ffffff;
+        `
+            default:
+                return `
+                background-color: #e9e9e9;
+                border: none;
+                border-radius : 3px;
+                color : #000000;
+                transition : all .2s cubic-bezier(.645,.045,.355,1);
+             
+            `
+        }
+    }}
+    ${props => (props.block) ? `width : 100%;` : null}
+    ${props => props.bold ? `font-weight : bold` : null};
+    width : ${props => props.width ? props.width : null};
+    font-family : 'Noto Sans KR';
+    font-size: 1.1rem;
+    text-align: center;
+
+    cursor: pointer;
+`
+
+const Button = ({ href, size, btnType, block, value, onClick, bold, width, style }) => (
+    <>
+        <ButtonComponent style={style} width={width} href={href} size={size} $btnType={btnType} block={block} value={value} bold={bold} onClick={onClick}>
+
+        </ButtonComponent>
+    </>
+)
+
+
+
+export default Button

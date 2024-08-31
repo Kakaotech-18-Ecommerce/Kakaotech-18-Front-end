@@ -1,8 +1,13 @@
 import styled, { keyframes } from 'styled-components';
 
+const themeColors = {
+  primary: ({ theme }) => theme.colors.primary,
+  secondary: ({ theme }) => theme.colors.secondary,
+  success: ({ theme }) => theme.colors.success,
+};
 export const HomeLayout = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -13,14 +18,22 @@ export const HomeLayout = styled.div`
   background: #ffffff;
 `;
 
+export const HomePageWrapper = styled.div`
+  width: calc(100dvw - (100dvw - 100%));
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const HomeWrapper = styled.div`
   position: relative;
-  width: 95%;
-  height: 95%;
+  width: 95dvw;
+  height: 93dvh;
   border-radius: 50px;
 
   display: grid;
-  grid-template-rows: 7.5rem auto;
+  grid-template-rows: ${(props) => props.theme.sizes.headerHeight} auto;
   background: linear-gradient(
     338deg,
     rgba(215, 222, 214, 1) 38%,
@@ -34,7 +47,7 @@ export const ColWrapper = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  border: black 5px solid;
+  /* border: black 5px solid; */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 `;
@@ -53,7 +66,7 @@ export const RowWrapper = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  border: red 5px dashed;
+  /* border: red 5px dashed; */
   display: grid;
   grid-template-rows: repeat(2, 1fr);
 `;
@@ -174,13 +187,14 @@ export const ButtonGroup = styled.div`
   display: grid;
   justify-content: space-between;
   align-items: center;
-  grid-gap: 10px;
-  grid-template-columns: 1fr 1fr 2fr 1fr;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr 2fr 0.8fr;
 `;
 
 export const Button = styled.button`
-  background-color: ${(props) => (props.primary ? '#5d5fef' : '#ffffff')};
-  color: ${(props) => (props.primary ? '#ffffff' : '#000000')};
+  background-color: ${(props) =>
+    props.$primary ? themeColors.primary(props) : '#ffffff'};
+  color: ${(props) => (props.$primary ? '#ffffff' : '#000000')};
   border: none;
   border-radius: 20px;
   padding: 30px 30px;

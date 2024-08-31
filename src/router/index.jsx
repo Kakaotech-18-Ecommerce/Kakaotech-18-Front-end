@@ -7,6 +7,7 @@ import { notification } from 'antd';
 const Home = lazy(() => import('./HomeRouter.jsx'));
 const Result = lazy(() => import('./ResultRouter.jsx'));
 const Main = lazy(() => import('./MainRouter.jsx'));
+const Login = lazy(() => import('./LoginRouter.jsx'))
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const role = useSelector(selectUserRole);
@@ -27,10 +28,10 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Home />} />
           <Route path="/goods:id" element={<Home />} />
           <Route path="/proposal" element={<Home />} />
           <Route path="/search" element={<Main />} />
+          <Route path="/login" element={<Login />} />
 
           <Route path="/cart" element={
             <ProtectedRoute allowedRoles={['USER']}>
