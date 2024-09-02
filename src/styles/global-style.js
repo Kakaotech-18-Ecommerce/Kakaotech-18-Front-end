@@ -9,16 +9,26 @@ const GlobalStyle = createGlobalStyle`
 
   html,body{
     width: 100%;
-    height: 100%;
+    height: auto;
     margin: 0;
     padding: 0;
     font-family: 'Noto Sans KR', sans-serif;
     background: #ffffff;
+    @media (max-width: 1200px) {
+        font-size: 14px
+      }
+      @media (max-width: 1024px) {
+        font-size: 12px
+      }
+      @media (max-width: 768px) {
+        font-size: 8px
+      }
   }
+
 
   #root{
       width : 100%;
-      height : 100%;
+      height : auto;
       margin : 0px;
       padding : 0px;
     }
