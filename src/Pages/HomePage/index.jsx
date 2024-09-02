@@ -23,7 +23,7 @@ const Home = () => {
       {
         root: null, // 뷰포트 기준
         threshold: 0, // 요소가 완전히 사라질 때 감지
-        rootMargin: `-${dvhToPx(11.5)}px`, // 추가적으로 감지 여유를 줄 수 있음
+        rootMargin: `-${dvhToPx(15.5)}px`, // 추가적으로 감지 여유를 줄 수 있음
       }
     );
 

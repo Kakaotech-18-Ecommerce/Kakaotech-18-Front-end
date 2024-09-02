@@ -6,7 +6,7 @@ const theme = {
     // 더 많은 색상 추가 가능
   },
   sizes: {
-    headerHeight: '8dvh',
+    headerHeight: '12dvh',
   },
 };
 

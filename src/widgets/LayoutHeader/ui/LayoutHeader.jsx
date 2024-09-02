@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import { Row, Col, Image, Typo, TextBox, Button } from "../../../shared/ui/index.js";
 import { LoginModalForm } from "../../LoginModalForm/ui/index.js";
 import headerIcon from "../../../assets/icons/golla_Icon.png"
-import HamburgerIcon from "../../../assets/icons/hamburgerIcon.png"
 import { ReactComponent as SearchIcon } from '../../../assets/svg/searchIcon.svg';
 import { ReactComponent as CartIcon } from '../../../assets/svg/cartIcon.svg';
 
@@ -82,22 +81,47 @@ const LayoutHeader = ({ logined, role, isEnded }) => {
 
   //SECTION 회원가입 정보
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/auth/logout', {
+        method: 'GET',
+        credentials: 'include' // 이 옵션을 사용하면 쿠키가 포함됩니다.
+      });
+
+      if (response.ok) {
+        // 요청이 성공했을 때의 처리
+        console.log('로그아웃 성공');
+        // 로그아웃 후 원하는 페이지로 리다이렉트
+        window.location.href = '/login';
+      } else {
+        // 요청이 실패했을 때의 처리
+        console.error('로그아웃 실패');
+      }
+    } catch (error) {
+      console.error('로그아웃 중 오류 발생:', error);
+    }
+  };
+
   const logOutOnClick = () => {
     //TODO logout_process
     // logout_process()
-    navigate('/')
+    handleLogout();
   }
+
 
   //!SECTION
 
 
 
   //SECTION - Login
+  const handleKakaoLogin = () => {
+    window.location.href = "http://localhost:8080/oauth2/authorization/kakao"
+    handleLoginModalClose()
+  }
+
   const handleNaverLogin = () => {
-    if (document && document?.querySelector("#naverIdLogin")?.firstChild && window !== undefined) {
-      const loginBtn = document.getElementById("naverIdLogin")?.firstChild;
-      loginBtn.click();
-    }
+    window.location.href = "http://localhost:8080/oauth2/authorization/naver"
+    handleLoginModalClose()
   }
   //!SECTION - Login
 
@@ -166,6 +190,9 @@ const LayoutHeader = ({ logined, role, isEnded }) => {
                     null
                 }
                 <LoginValueBtn onClick={doingLogin} >회원가입</LoginValueBtn>
+                {/*TODO 삭제  */}
+                <LoginValueBtn onClick={logOutOnClick}>로그아웃</LoginValueBtn>
+
               </LoginBtnBox>
             </>
           // !SECTION - jsx 장바구니 | 로그인 | 회원가입
@@ -188,14 +215,14 @@ const LayoutHeader = ({ logined, role, isEnded }) => {
             </Col>
             <Col span={6}>
               <Row align={"center"} justify={"space-between"}>
-                <Col span={10}>
+                <Col md={9} span={10}>
                   <SearchWrapper $isEnded={isEnded}>
                     <TextBox value={searchValue} onChange={searchIconOnChange} onKeyPress={onKeyPressSearch} placeholder={"검색어를 입력해 주세요"}></TextBox>
                     {/* <SearchOutlinedIcon style={{ fontSize: "2rem", marginRight: "1rem", color: "#0d7000", cursor: "pointer" }} /> */}
                     <SearchIcon onClick={searchSubmitOnClick} cursor={"pointer"} color={"#0d7000"} width={"2rem"} height={"2rem"} style={{ marginRight: "1rem" }} ></SearchIcon>
                   </SearchWrapper>
                 </Col>
-                <Col span={2}>
+                <Col md={3} span={2}>
                   <Button btnType={"black"} size={'large'} $bold onClick={doingLogin}
                     value={"로그인"}>
                   </Button>
@@ -209,20 +236,21 @@ const LayoutHeader = ({ logined, role, isEnded }) => {
                       left: '50%',
                       transform: 'translate(-50%, -50%)',
                       width: {
-                        xs: "90%",
-                        sm: "55%",
-                        md: "55%",
-                        lg: "55%",
-                        xl: "55%",
+                        // xs: "90%",
+                        // sm: "50%",
+                        // md: "50%",
+                        // lg: "50%",
+                        // xl: "50%",
                       },
+                      maxWidth: '500px',
                       bgcolor: 'background.paper',
                       boxShadow: 24,
-                      borderRadius: '5px',
+                      borderRadius: '14px',
                       p: 4,
                       overflow: 'auto',
-                      maxHeight: ' 80%'
+                      maxHeight: ' 80%',
                     }}>
-                      <LoginModalForm handleNaverLogin={handleNaverLogin} />
+                      <LoginModalForm handleLoginModalClose={handleLoginModalClose} handleNaverLogin={handleNaverLogin} handleKakaoLogin={handleKakaoLogin} />
 
                     </Box>
                   </Modal>
