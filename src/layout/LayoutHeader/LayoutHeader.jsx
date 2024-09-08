@@ -14,7 +14,7 @@ import { ReactComponent as SearchIcon } from '../../assets/svg/searchIcon.svg';
 import { ReactComponent as CartIcon } from '../../assets/svg/cartIcon.svg';
 import HamburgerIcon from "../../assets/icons/hamburgerIcon.png"
 
-
+import { useCategories, useCategoryInteractions } from "../../hooks/index.js"
 
 
 //SECTION - styledComponent
@@ -243,64 +243,13 @@ const HeaderContent = ({ logined, role, name }) => {
 
   //SECTION 카테고리
 
-  //detail object
-  const categoryValueDetailMonk = {
-    '쌀 · 잡곡': [],
-    '채소': ['잎채소', '근채류', '감자', '고구마', '마늘', '인삼',],
-    '과일': ['딸기', '메론', '배', '복숭아', '사과', '샤인머스켓', '수박', '자두', '포도'],
-    '감 · 곶감': ['감', '곶감'],
-    '견과 · 버섯': ['밤', '호두', '표고버섯'],
-    '와인': ['화이트', '레드', '로제'],
-    '벌꿀': ['아카시아꿀', '밤꿀', '잡화꿀'],
-    '가공식품': ['식초', '과일즙', '쨈', '조청', '호두기름'],
-    '장류': ['된장', '고추장', '청국장', '막장', '간장'],
-    '떡 · 간식': ['떡', '간식'],
-    '기타': ['산골오징어', '산속새우젓'],
-
-  }
-  const categoryValueMonk = Object.keys(categoryValueDetailMonk)
-
-  //카테고리 와퍼 bool
-  const [isCategoryEnter, setCategoryEnter] = useState(false);
-  //카테고리 value
-  const [categoryValue, setCategoryValue] = useState("");
-  //카테고리 세부사항
-  const [isCategoryDetail, setIsCategoryDetail] = useState(false);
-  //카테고리 세부사항 객체
-  const [categoryValueDetail, setCategoryValueDetail] = useState([]);
+  const { categoriesValues, getCategoryKorName } = useCategories();
+  const { setCategoryEnter, mouseEnterHandler, categoryValue, mouseLeaveHandler, isCategoryEnter, valueMouseEnterHandler, valueMouseLeaveHandler, isCategoryDetail, categoryValueDetail } = useCategoryInteractions();
 
 
-
-
-  const mouseEnterHandler = () => {
-    setCategoryEnter(true);
-    setIsCategoryDetail(false)
-
-  }
-  const mouseLeaveHandler = () => {
-    setCategoryValue("")
-    setCategoryEnter(false)
-  }
-
-  const valueMouseEnterHandler = (event, value) => {
-    setCategoryEnter(true);
-    setCategoryValue(value)
-
-    setCategoryValueDetail(categoryValueDetailMonk[value])
-    categoryValueDetailMonk[value].length === 0 ?
-      setIsCategoryDetail(false)
-      :
-      setIsCategoryDetail(true);
-
-  }
-
-
-  const valueMouseLeaveHandler = () => {
-  }
-
-  const categoryValueOnClick = (e, value) => {
+  const categoryValueOnClick = (e, value, subValue) => {
     console.log(value)
-    navigate(`/collections?keyword=${value}`)
+    navigate(`/collections?keyword=${value}&sub=${subValue}`)
     return e.stopPropagation()
 
   }
@@ -480,12 +429,12 @@ const HeaderContent = ({ logined, role, name }) => {
                     <Row style={{ overflowY: "auto", width: "247px", height: "100%", cursor: "pointer" }}>
                       <Col span={12}>
                         {
-                          categoryValueMonk.map((item, index) =>
+                          categoriesValues.map((item, index) =>
                             <CategoryValue key={index}
-                              onClick={(e) => categoryValueOnClick(e, item)}
+
                               onMouseEnter={(event) => valueMouseEnterHandler(event, item)} onMouseLeave={valueMouseLeaveHandler}
                             >
-                              {item}
+                              {getCategoryKorName(item)}
                             </CategoryValue>
                           )
                         }
@@ -500,9 +449,8 @@ const HeaderContent = ({ logined, role, name }) => {
                             <Col span={12}>
                               {
                                 categoryValueDetail.map((item, index) => {
-                                  return <CategoryDetailValue key={index}>{item}</CategoryDetailValue>
+                                  return <CategoryDetailValue key={index} onClick={(e) => categoryValueOnClick(e, categoryValue, item)}>{getCategoryKorName(item)}</CategoryDetailValue>
                                 })
-
                               }
 
                             </Col>

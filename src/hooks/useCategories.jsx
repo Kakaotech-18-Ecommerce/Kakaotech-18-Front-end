@@ -1,12 +1,33 @@
 import { useState, useCallback, useEffect } from "react";
 
-// 기본 카테고리 객체를 컴포넌트 외부에 선언
-const DEFAULT_CATEGORIES = {
-  '간식 · 과자': ['초콜릿 · 젤리', '간식 · 과자'],
+/** 기본 카테고리 객체를 컴포넌트 외부에 선언
+ *'간식 · 과자': ['초콜릿 · 젤리', '간식 · 과자'],
   '와인 · 위스키': ["레드와인", '화이트 · 로제와인'],
   '유제품': ['우유 · 두유', '아이스크림'],
   '정육 · 가공육': ['소고기', '돼지고기']
+ */
+const DEFAULT_CATEGORIES = {
+  'SNACK': ['CHOCOJELLY', 'SNACK'],
+  'WINE': ['REDWINE', 'WHITEWINE'],
+  'DAIRY': ['MILK', 'ICECREAM'],
+  'MEAT': ['BEEF', 'PORK'],
+
 };
+
+const CATEGORIES_KOR = {
+  'SNACK': '간식 · 과자',
+  'CHOCOJELLY': '초콜릿 · 젤리',
+  'WINE': '와인 · 위스키',
+  'REDWINE': '레드와인',
+  'WHITEWINE': '화이트 · 로제와인',
+  'DAIRY': '유제품',
+  'MILK': '우유 · 두유',
+  'ICECREAM': '아이스크림',
+  'MEAT': '정육 · 가공육',
+  'BEEF': '소고기',
+  'PORK': '돼지고기'
+};
+
 
 const useCategories = (initialCategories = DEFAULT_CATEGORIES) => {
   //카테고리 
@@ -51,13 +72,18 @@ const useCategories = (initialCategories = DEFAULT_CATEGORIES) => {
     setCategories(DEFAULT_CATEGORIES);
   }, []);
 
+  const getCategoryKorName = useCallback((category) => {
+    return CATEGORIES_KOR[category] || category;
+  }, []);
+
   return {
     categories,
     categoriesValues,
     addCategory,
     updateCategory,
     removeCategory,
-    resetCategories
+    resetCategories,
+    getCategoryKorName
   };
 };
 
