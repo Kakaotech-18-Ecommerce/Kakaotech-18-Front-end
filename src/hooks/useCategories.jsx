@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 
 /** 기본 카테고리 객체를 컴포넌트 외부에 선언
  *'간식 · 과자': ['초콜릿 · 젤리', '간식 · 과자'],
@@ -33,12 +33,8 @@ const useCategories = (initialCategories = DEFAULT_CATEGORIES) => {
   //카테고리 
   const [categories, setCategories] = useState(initialCategories);
   //카테고리 values
-  const [categoriesValues, setCategoriesValues] = useState(Object.keys(initialCategories));
+  const categoriesValues = useMemo(() => Object.keys(categories), [categories]);
 
-
-  useEffect(() => {
-    setCategoriesValues(Object.keys(categories));
-  }, [categories]);
 
   // useCallback을 사용하여 함수 재생성 방지
   const addCategory = useCallback((categoryName, categoryValue) => {
@@ -87,4 +83,4 @@ const useCategories = (initialCategories = DEFAULT_CATEGORIES) => {
   };
 };
 
-export default useCategories;
+export default (useCategories);
