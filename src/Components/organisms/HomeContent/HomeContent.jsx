@@ -1,9 +1,7 @@
 import React from 'react';
-import { Image } from "../../index.js"
-import Kakao_login from "../../../assets/images/kakao_login.png"
+import { Image } from "../../atoms/index.js"
 import { useNavigate } from 'react-router-dom';
 import { HomeLayout, HomePageWrapper, HomeWrapper, ColWrapper, FirstColItem, RowWrapper, FirstRowItem, TextContainer, MainText, SubText, Card, SearchBar, SearchInput, ButtonGroup, Button, SecondRowItem } from './HomeContent.styles.js';
-import { Col, Row } from "../../../shared/ui/index.js"
 import hero_Img from "../../../assets/images/man1.png"
 import { Search, Mic, ChevronRight } from 'lucide-react';
 

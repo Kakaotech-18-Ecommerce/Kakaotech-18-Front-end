@@ -3,8 +3,11 @@ import { Navigate, BrowserRouter as Router, Routes, Route } from 'react-router-d
 import { useSelector } from 'react-redux';
 import { selectUserRole } from '../entities/user/index.js';
 import { notification } from 'antd';
+import Home from './HomeRouter.jsx';
+import Collections from './CollectionsRouter.jsx';
 
-const Home = lazy(() => import('./HomeRouter.jsx'));
+// const Home = lazy(() => import('./HomeRouter.jsx'));
+// const Collections = lazy(() => import('./CollectionsRouter.jsx'));
 const Result = lazy(() => import('./ResultRouter.jsx'));
 const Main = lazy(() => import('./MainRouter.jsx'));
 const Login = lazy(() => import('./LoginRouter.jsx'))
@@ -25,59 +28,62 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 function App() {
   return (
     <Router>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/goods:id" element={<Home />} />
-          <Route path="/proposal" element={<Home />} />
-          <Route path="/search" element={<Main />} />
-          <Route path="/login" element={<Login />} />
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/collections" element={<Collections />} />
+        <Route path="/goods:id" element={<Collections />} />
+        <Route path="/goods" element={<Collections />} />
 
-          <Route path="/cart" element={
-            <ProtectedRoute allowedRoles={['USER']}>
-              <Result />
-            </ProtectedRoute>
-          } />
-          <Route path="/mypage/:menu" element={
-            <ProtectedRoute allowedRoles={['USER']}>
-              <Result />
-            </ProtectedRoute>
-          } />
-          <Route path="/mypage" element={
-            <ProtectedRoute allowedRoles={['USER']}>
-              <Result />
-            </ProtectedRoute>
-          } />
+        <Route path="/proposal" element={<Home />} />
+        <Route path="/search" element={<Main />} />
+        <Route path="/login" element={<Login />} />
 
-          {/**
+        <Route path="/cart" element={
+          <ProtectedRoute allowedRoles={['USER']}>
+            <Result />
+          </ProtectedRoute>
+        } />
+        <Route path="/mypage/:menu" element={
+          <ProtectedRoute allowedRoles={['USER']}>
+            <Result />
+          </ProtectedRoute>
+        } />
+        <Route path="/mypage" element={
+          <ProtectedRoute allowedRoles={['USER']}>
+            <Result />
+          </ProtectedRoute>
+        } />
+
+        {/**
               * @description 주문관련 path
               * @param  {params} checkout - 주문서 
               * @param  {params} complete - 주문완료 
           */}
-          <Route path="/order/:params" element={
-            <ProtectedRoute allowedRoles={['USER']}>
-              <Result />
-            </ProtectedRoute>
-          } />
-          <Route path="/order" element={
-            <ProtectedRoute allowedRoles={['USER']}>
-              <Result />
-            </ProtectedRoute>
-          } />
+        <Route path="/order/:params" element={
+          <ProtectedRoute allowedRoles={['USER']}>
+            <Result />
+          </ProtectedRoute>
+        } />
+        <Route path="/order" element={
+          <ProtectedRoute allowedRoles={['USER']}>
+            <Result />
+          </ProtectedRoute>
+        } />
 
-          {/* ADMIN PAGE */}
-          <Route path="/admin:menu" element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
-              <Result />
-            </ProtectedRoute>
-          } />
-          <Route path="/admin" element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
-              <Result />
-            </ProtectedRoute>
-          } />
-        </Routes>
-      </Suspense>
+        {/* ADMIN PAGE */}
+        <Route path="/admin:menu" element={
+          <ProtectedRoute allowedRoles={['ADMIN']}>
+            <Result />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin" element={
+          <ProtectedRoute allowedRoles={['ADMIN']}>
+            <Result />
+          </ProtectedRoute>
+        } />
+      </Routes>
+      {/* </Suspense> */}
     </Router>
   );
 }

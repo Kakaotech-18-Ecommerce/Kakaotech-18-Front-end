@@ -1,30 +1,34 @@
 import React from 'react';
-import { Col, Row, Typo, Image } from '../../../shared/ui/index.js';
+import { Typo, Image } from '../../atoms/index.js';
+import { Col, Row } from "../../../layout/index.js";
 import Kakao_login from '../../../assets/images/kakao_login_medium_wide.png';
 import CloseIcon from '@mui/icons-material/Close';
 import styled from "styled-components";
 import naverBtn from "../../../assets/icons/naverBtn.png"
-
+import kakaoBtn from "../../../assets/icons/kakaoBtn.png"
 
 const SnsLoginBtn = styled.div`
     margin : 5px 0;
-    height : 4.5rem;
+    height : 4rem;
     width: 100%;
     display:flex;
     align-items:center;
     justify-content:flex-start;
+    position : relative;
     background-color: ${props => props.$naver ? `#1EC800` : `#F5E901`};
     color: ${props => props.$naver ? `#fff` : `#000`};
+    border-radius : 4px;
     cursor : pointer;
 `
 const SnsIconWrapper = styled.div`
+    position : absolute;
     display:flex;
     align-items:center;
     justify-content:center;
-    width : 5rem;
-    padding :0 10px;
+    width : 4rem;
+    padding :0 1rem;
     height : 100%;
-    border-right:1px solid white;
+    border-right:2px solid white;
     cursor : pointer;
 
 `
@@ -32,7 +36,7 @@ const SnsIconWrapper = styled.div`
 const LoginModalForm = ({ handleLoginModalClose, handleKakaoLogin, handleNaverLogin }) => {
   return (
     <>
-      <Row>
+      <Row justify={'center'}>
         <Col span={12} justify={'flex-end'} style={{ paddingBottom: "1rem" }}>
           <CloseIcon onClick={handleLoginModalClose} style={{ fontSize: "23px", color: "rgb(112, 121, 143)", cursor: "pointer" }} />
         </Col>
@@ -41,18 +45,26 @@ const LoginModalForm = ({ handleLoginModalClose, handleKakaoLogin, handleNaverLo
             소셜계정으로 간편하게 !
           </Typo>
         </Col>
-        <Col span={12} style={{ marginTop: '1rem' }}>
-          <Row justify={'space-between'}>
+        <Col span={11} justify={'center'} style={{ marginTop: '1rem' }}>
+          <Row justify={'space-between'} >
             {/* //SECTION - JSX 소셜로그인 */}
-            <Col span={12} style={{ padding: '1rem 0' }} justify={'center'}>
+            <Col span={12} style={{ paddingTop: '1rem' }} justify={'center'}>
               {/* <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 로그인</Typo> */}
               <SnsLoginBtn $naver onClick={handleNaverLogin}>
                 <SnsIconWrapper >
-                  <img src={naverBtn} alt="NAVER" width={"80%"} />
+                  <Image src={naverBtn} alt="NAVER" width={"80%"} />
                 </SnsIconWrapper>
-                <Typo cursor={"pointer"} width={"inherit"} padding={"0 0 0 5px"} textAlign={"center"} size={"1.2rem"}>네이버로 로그인</Typo>
+                <Typo width={'100%'} cursor={"pointer"} textAlign={"center"} size={"1.2rem"} style={{ justifyContent: "center" }}>네이버로 시작하기</Typo>
               </SnsLoginBtn>
-              <Image onClick={handleKakaoLogin} src={Kakao_login} cursor={"pointer"}></Image>
+            </Col>
+            <Col span={12} style={{ padding: '10px 0' }} justify={'center'}>
+              {/* <Typo size={'1.5rem'} color={"#414141"} weight={"bold"}>소셜계정으로 로그인</Typo> */}
+              <SnsLoginBtn onClick={handleNaverLogin}>
+                <SnsIconWrapper >
+                  <Image src={kakaoBtn} alt="KAKAO" width={"80%"} />
+                </SnsIconWrapper>
+                <Typo width={'100%'} cursor={"pointer"} textAlign={"center"} size={"1.2rem"} style={{ justifyContent: "center" }}>카카오로 시작하기</Typo>
+              </SnsLoginBtn>
             </Col>
             {/* //!SECTION - 소셜로그인 */}
           </Row>

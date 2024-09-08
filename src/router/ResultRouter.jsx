@@ -1,5 +1,5 @@
 import React from 'react';
-import Result from "../pages/ResultPage"
+import Result from "../Pages/ResultPage"
 const ResultRouter = () => {
   return (
     <Result />

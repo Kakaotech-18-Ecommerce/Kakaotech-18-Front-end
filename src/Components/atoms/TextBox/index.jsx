@@ -82,8 +82,17 @@ const TextBox = ({ onKeyPress, type, autofocus, block, plane, value, onChange, p
 
     return (
         <>
-            <Text type={type} align={align} color={color} plane={plane} ref={textRef} onKeyPress={onKeyPress}
-                block={block} value={value} onChange={onChange} placeholder={placeholder} disabled={disabled} >
+            <Text $type={type}
+                $align={align}
+                $color={color}
+                $plane={plane}
+                $block={block}
+                $disabled={disabled}
+                ref={textRef}
+                onKeyPress={onKeyPress}
+                value={value}
+                onChange={onChange}
+                placeholder={placeholder} >
             </Text>
         </>
     )
