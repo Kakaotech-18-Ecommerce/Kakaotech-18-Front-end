@@ -1,23 +1,34 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom"
-import { Row, Col, Image, Typo, TextBox, Button } from "../../../shared/ui/index.js";
-import { LoginModalForm } from "../../LoginModalForm/ui/index.js";
-import headerIcon from "../../../assets/icons/golla_Icon.png"
-import { ReactComponent as SearchIcon } from '../../../assets/svg/searchIcon.svg';
-import { ReactComponent as CartIcon } from '../../../assets/svg/cartIcon.svg';
+import { useLocation, useNavigate } from "react-router-dom"
+import { Image, Typo, TextBox, Button } from "../../Components/atoms/index.js";
+import { Row, Col } from "../index.js"
+import { LoginModalForm } from "../../Components/molecules/index.js";
+import headerIcon from "../../assets/icons/golla_Icon.png"
+import { ReactComponent as SearchIcon } from '../../assets/svg/searchIcon.svg';
+import { ReactComponent as CartIcon } from '../../assets/svg/cartIcon.svg';
 
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
-import { SenHeader, LayoutHeaderWrapper, HeaderWrapper, IconHeader, SearchWrapper, IconHeaderButton, VerticalDivider, CategoryHeader, CategoryBox, LoginBtnBox, LoginValueBtn, CategoryWrapper, CategoryContent, CategoryValue } from "./LayoutHeader.styles.js"
+import { SenHeader, LayoutHeaderWrapper, HeaderWrapper, IconHeader, SearchWrapper, IconHeaderButton, VerticalDivider, CategoryHeader, CategoryBox, LoginBtnBox, LoginValueBtn, CategoryWrapper, CategoryContent, CategoryValue } from "./HomeHeader.styles.js"
 
-const LayoutHeader = ({ logined, role, isEnded }) => {
+const HomeHeader = ({ logined, role, isEnded = true }) => {
+  const location = useLocation();
+
+
   //SECTION 스크롤 
   const [scrolled, setScrolled] = useState(false);
   const sentinelRef = useRef(null);
 
   useEffect(() => {
+
+    // 홈 페이지가 아닐 경우 scrolled를 true로 설정
+    if (location.pathname !== '/') {
+      setScrolled(true);
+      return; // 홈이 아니면 observer를 설정하지 않음
+    }
+
     const sentinel = sentinelRef.current;
 
     const observer = new IntersectionObserver(
@@ -39,7 +50,7 @@ const LayoutHeader = ({ logined, role, isEnded }) => {
         observer.unobserve(sentinel);
       }
     };
-  }, []);
+  }, [location.pathname]);
 
   console.log(isEnded, scrolled)
 
@@ -68,6 +79,10 @@ const LayoutHeader = ({ logined, role, isEnded }) => {
       */
 
   const IconHeaderBtnOnClick = {
+    home: () => {
+      navigate('/');
+    },
+
     myPage: () => {
       logined ? navigate('/mypage/order') : doingLogin()
     },
@@ -124,6 +139,9 @@ const LayoutHeader = ({ logined, role, isEnded }) => {
     handleLoginModalClose()
   }
   //!SECTION - Login
+
+
+
 
 
   //SECTION - search
@@ -204,10 +222,10 @@ const LayoutHeader = ({ logined, role, isEnded }) => {
           <Row align={"center"} justify={"space-between"}>
             <Col span={6} align={"center"}>
               <Row align={"center"}>
-                <Col span={2} align={"center"}>
-                  <Image src={headerIcon} width={'100%'} cursor={"pointer"} onClick={() => { navigate("/") }} />
+                <Col xs={4} sm={3} span={3} align={"center"}>
+                  <Image src={headerIcon} width={'100%'} cursor={"pointer"} onClick={() => { IconHeaderBtnOnClick.home() }} />
                 </Col>
-                <Col xs={10} sm={10} md={9} lg={9} xl={9} xxl={8} span={8} justify={"space-evenly"} align={"center"}>
+                <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8} span={8} justify={"space-evenly"} align={"center"}>
                   <CategoryBox onClick={() => navigate("/collections")}>전체상품</CategoryBox>
                   <CategoryBox onClick={() => navigate("/collections/signature")} >추천아이템</CategoryBox>
                 </Col>
@@ -268,4 +286,4 @@ const LayoutHeader = ({ logined, role, isEnded }) => {
 
 }
 
-export default LayoutHeader;
+export default HomeHeader;

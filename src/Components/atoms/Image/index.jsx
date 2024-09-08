@@ -2,7 +2,6 @@ import React from "react"
 import styled from "styled-components"
 
 const ImageStyle = styled.img.attrs((props) => ({
-    transition: `all 0.5s ease`,
     src: props.src
 }))`
     transition: all 0.5s ease  ;

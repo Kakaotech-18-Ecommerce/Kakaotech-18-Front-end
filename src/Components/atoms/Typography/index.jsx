@@ -12,13 +12,13 @@ font-family : ${props => (props.fontFamily) || 'Noto Sans KR'};
 color : ${props => (props.color)};
 background-color : ${props => (props.backColor)};
 opacity :  ${props => (props.opacity)};
-font-weight : ${props => (props.weight)};
+font-weight : ${props => (props.$weight)};
 ${props => (props.radius) ? `border-radius: 5px;` : null};
 border-bottom : ${props => (props.border) || null};
 cursor : ${props => (props.cursor) || 'inherit'};
-padding : ${props => (props.padding)};
+padding : ${props => (props.$padding)};
 width : ${props => (props.width) || null};
-text-align : ${props => (props.textAlign) || null};
+text-align : ${props => (props.$textAlign) || null};
 line-height :1.5;
 `
 
@@ -30,8 +30,8 @@ const Typography = ({ size, color, onClick, radius, fontFamily, full, width, tex
     return (
         <>
             <Typo size={size} color={color} onClick={onClick} fontFamily={fontFamily} width={width} style={style}
-                radius={radius} backColor={backColor} weight={weight} full={full} textAlign={textAlign}
-                children={children} opacity={opacity} cursor={cursor} border={border} padding={padding}>
+                radius={radius} backColor={backColor} $weight={weight} full={full} $textAlign={textAlign}
+                children={children} opacity={opacity} cursor={cursor} border={border} $padding={padding}>
             </Typo>
         </>
     )

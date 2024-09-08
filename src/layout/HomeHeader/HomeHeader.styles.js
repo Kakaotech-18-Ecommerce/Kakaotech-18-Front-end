@@ -29,6 +29,7 @@ export const LayoutHeaderWrapper = styled.div`
     props['data-scrolled'] &&
     `
     background-color: #fff;
+    box-shadow:rgba(0, 0, 0, 0.07) 0px 3px 4px 0px;
   `}
 `;
 

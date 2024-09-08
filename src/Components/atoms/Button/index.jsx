@@ -20,7 +20,7 @@ const ButtonComponent = styled.input.attrs(props => ({ type: "button" }))`
         }
     }}
 ${props => {
-        switch (props.types) {
+        switch (props.$btnType) {
             case "primary":
                 return `
                 background-color: #0d7000;
@@ -37,6 +37,13 @@ ${props => {
                 outline : 0;
                 color : #063600;
             `
+            case "black": return `
+            background-color: #020202;
+            border: #020202 1px solid;
+            border-radius : 3px;
+            outline : 0;
+            color : #ffffff;
+        `
             default:
                 return `
                 background-color: #e9e9e9;
@@ -58,9 +65,9 @@ ${props => {
     cursor: pointer;
 `
 
-const Button = ({ href, size, types, block, value, onClick, bold, width, style }) => (
+const Button = ({ href, size, btnType, block, value, onClick, bold, width, style }) => (
     <>
-        <ButtonComponent style={style} width={width} href={href} size={size} types={types} block={block} value={value} bold={bold} onClick={onClick}>
+        <ButtonComponent style={style} width={width} href={href} size={size} $btnType={btnType} block={block} value={value} bold={bold} onClick={onClick}>
 
         </ButtonComponent>
     </>

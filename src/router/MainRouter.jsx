@@ -1,5 +1,5 @@
 import React from 'react';
-import Main from "../pages/MainPage"
+import Main from "../Pages/MainPage"
 const MainRouter = () => {
   return (
     <Main />

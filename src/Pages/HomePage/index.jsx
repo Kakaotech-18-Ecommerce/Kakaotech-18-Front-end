@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useRef, useEffect } from "react";
-import LayoutHeader from "../../widgets/LayoutHeader/ui/LayoutHeader.jsx"
+import { HomeHeader } from "../../layout/index.js"
 import HomeContent from "../../Components/organisms/HomeContent/HomeContent.jsx"
 const Home = () => {
   const searchMainRef = useRef(null); // 감지할 요소의 ref
@@ -40,7 +40,7 @@ const Home = () => {
 
   return (
     <>
-      <LayoutHeader isEnded={isEnded}></LayoutHeader>
+      <HomeHeader isEnded={isEnded}></HomeHeader>
       <HomeContent searchMainRef={searchMainRef} />
     </>
   );
